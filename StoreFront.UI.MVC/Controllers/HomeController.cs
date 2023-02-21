@@ -28,5 +28,10 @@ namespace StoreFront.UI.MVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Item()
+        {
+            return View();
+        }
     }
 }
