@@ -14,6 +14,7 @@ namespace StoreFront.DATA.EF.Models
         public string SupplierName { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string City { get; set; } = null!;
+        
         public int StateId { get; set; }
         public string? Zip { get; set; }
         public string? Phone { get; set; }

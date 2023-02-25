@@ -19,7 +19,7 @@ namespace StoreFront.DATA.EF.Models
         public int CategoryId { get; set; }
         public string? FoodImg { get; set; }
 
-        public virtual Category Category { get; set; } = null!;
+        public virtual Category? Category { get; set; }
         public virtual Supplier? Supplier { get; set; }
         public virtual ICollection<FoodOrder> FoodOrders { get; set; }
     }
