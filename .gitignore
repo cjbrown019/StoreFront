@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 
-*.json
+git rm --cached appsettings.json
