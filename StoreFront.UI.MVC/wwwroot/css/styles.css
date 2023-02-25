@@ -11290,9 +11290,24 @@ textarea.form-control-lg {
 }
 
 .bg-custom {
-    background-color: #72A67F
+    background-color: #0a58ca;
 }
 
 .bg-custom-dark {
-    background-color: #025939
+    background-color: #025939;
+}
+
+#banner-org{
+    background-color: #F2B66D;
+}
+
+
+
+#banner-img{
+    object-fit:cover;
+    width:100%;
+    height:12rem;
+    box-shadow: 2px 2px 10px #000;
+
+
 }
