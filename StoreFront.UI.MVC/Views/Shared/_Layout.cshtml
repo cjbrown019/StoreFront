@@ -11,13 +11,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/styles.css" rel="stylesheet" />
+    <!-- GOOGLE FONT -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue"/>
 </head>
 <body class="bg-light">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand text-light" href="@Url.Action("Index","Home")">FOOD N' GO</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link text-light" aria-current="page" href="@Url.Action("Index","Home")">Home</a></li>
@@ -27,8 +29,8 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="@Url.Action("Index","FoodStoreMenus")">All Products</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("NewProds","FoodStoreMenus")">Popular Items</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("NewProds","FoodStoreMenus")">New Arrivals</a></li>
                         </ul>
                     </li>
 
@@ -36,32 +38,36 @@
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-dropeffect="execute" data-bs-auto-close="outside" aria-expanded="false">Admin</a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-item">
-                                    <a href="#">Menu Item</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("AdminProds","FoodStoreMenus")">Inventory</a>
                                 </li>
-                                <li class="dropdown-item">
-                                    <a href="#">Menu Item</a>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Index","Categories")">Categories List</a>
                                 </li>
-                                <li class="dropdown-item">
-                                    <a href="#">Menu Item</a>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Index","Suppliers")">Supplier List</a>
                                 </li>
-                                <li class="dropdown-item">
-                                    <a href="#">Menu Item</a>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("ListUsers","Administration")">User List</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("ListRoles","Administration")">Roles List</a>
                                 </li>
                             </ul>
                         </li>
                     }
                 </ul>
             </div>
-                <partial name="_LoginPartial" />
-                <form class="d-flex">
-                    <button class="btn btn-outline-light" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
+            <form class="d-flex">
+                <button class="btn btn-outline-light me-1" type="submit" id="cartBtn">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </button>
+            </form>
+            <partial name="_LoginPartial" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         </div>
 
     </nav>

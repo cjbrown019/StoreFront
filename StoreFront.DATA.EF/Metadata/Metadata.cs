@@ -33,7 +33,7 @@ namespace StoreFront.DATA.EF.Models
         public int? SupplierId { get; set; }
         [Required, Display(Name ="Supplier")]
         public int CategoryId { get; set; }
-        [Required, MaxLength(50)]
+        [ MaxLength(50)]
         public string? FoodImg { get; set; }
     }
 

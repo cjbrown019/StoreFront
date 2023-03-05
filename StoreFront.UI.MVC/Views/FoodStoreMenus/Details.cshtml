@@ -4,81 +4,84 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="ms-2 mt-2">Details</h1>
 
 <div>
-    <h4>FoodStoreMenu</h4>
-    <hr />
-    <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
-                    <div class="col-md-6">
-                        <div class="small mb-1">@Html.DisplayFor(model => model.Supplier.SupplierName)</div>
-                        <h1 class="display-5 fw-bolder">@Html.DisplayFor(model => model.FoodName)</h1>
-                        <div class="fs-5 mb-5">
-                            @*<span class="text-decoration-line-through">$45.00</span>*@
-                            <span>@Html.DisplayFor(model => model.FoodPrice)</span>
-                        </div>
-                        <p class="lead">@Html.DisplayFor(model => model.FoodDesc)</p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
-                        </div>
+    <section class="">
+        <div class="container px-4 px-lg-5 my-2">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img id="detail-img" class="mb-md-0 shadow-sm m-auto" src="~/images/@Html.DisplayFor(model => model.FoodImg)" alt="..." /></div>
+                <div class="col-md-6">
+                    <div class="small mb-1">@Html.DisplayFor(model => model.Supplier.SupplierName)</div>
+                    <h1 class="display-5 fw-bolder">@Html.DisplayFor(model => model.FoodName)</h1>
+                    <div class="fs-5 mb-5">
+                        @*<span class="text-decoration-line-through">$45.00</span>*@
+                        <span>@Html.DisplayFor(model => model.FoodPrice)</span>
+                    </div>
+                    <p class="lead">@Html.DisplayFor(model => model.FoodDesc)</p>
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-@*    <dl class="row">
+
+    @*    <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FoodName)
+        @Html.DisplayNameFor(model => model.FoodName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FoodName)
+        @Html.DisplayFor(model => model.FoodName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FoodDesc)
+        @Html.DisplayNameFor(model => model.FoodDesc)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FoodDesc)
+        @Html.DisplayFor(model => model.FoodDesc)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FoodPrice)
+        @Html.DisplayNameFor(model => model.FoodPrice)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FoodPrice)
+        @Html.DisplayFor(model => model.FoodPrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InStock)
+        @Html.DisplayNameFor(model => model.InStock)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InStock)
+        @Html.DisplayFor(model => model.InStock)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FoodImg)
+        @Html.DisplayNameFor(model => model.FoodImg)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FoodImg)
+        @Html.DisplayFor(model => model.FoodImg)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
+        @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryName)
+        @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Supplier)
+        @Html.DisplayNameFor(model => model.Supplier)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Supplier.Address)
+        @Html.DisplayFor(model => model.Supplier.Address)
         </dd>
-    </dl>*@
+        </dl>*@
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.FoodId">Edit</a> |
+    @if (User.IsInRole("Admin"))
+    {
+        <span class="ms-2"> <a asp-action="Edit" class="" asp-route-id="@Model?.FoodId">Edit</a>  | </span>
+
+    }
     <a asp-action="Index">Back to List</a>
 </div>

@@ -16,6 +16,17 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>options.SignIn.Requi
 
 builder.Services.AddControllersWithViews();
 
+//Below, we will register the Session service for us with the Shopping Cart
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); //The duration a Session is stored in the application memory
+    options.Cookie.HttpOnly = true; //Allows us to set cookie options over unsecure connections
+    options.Cookie.IsEssential = true; //The cookie cannot be declined
+}
+
+);
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +45,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession(); //Implemente the session
+
 
 app.UseAuthentication();
 app.UseAuthorization();
