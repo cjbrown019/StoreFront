@@ -99,22 +99,22 @@ namespace StoreFront.UI.MVC.Controllers
             //Add the newly selected Product(s) to the cart
             //Retrieve the Product from the Database
 
-            FoodStoreMenu product = _context.FoodStoreMenus.Find(id);
+            FoodStoreMenu menuItem = _context.FoodStoreMenus.Find(id);
 
             //Instantiate the CartItemViewModel object so we can add it to the cart
-            CartItemViewModel civm = new CartItemViewModel(1, product); //Adds 1 of the selected Product to the cart
+            CartItemViewModel civm = new CartItemViewModel(1, menuItem); //Adds 1 of the selected Product to the cart
 
             //If the product was already in the cart, increase the quantity by 1.
             //Otherwise, add the new item to the cart
-            if (shoppingCart.ContainsKey(product.FoodId))
+            if (shoppingCart.ContainsKey(menuItem.FoodId))
             {
                 //Item is already in the cart -- increase the quantity
-                shoppingCart[product.FoodId].Qty++;
+                shoppingCart[menuItem.FoodId].Qty++;
             }
             else
             {
                 //Item wasn't in the cart -- add it
-                shoppingCart.Add(product.FoodId, civm);
+                shoppingCart.Add(menuItem.FoodId, civm);
             }
 
             //Update the Session version of the cart 
