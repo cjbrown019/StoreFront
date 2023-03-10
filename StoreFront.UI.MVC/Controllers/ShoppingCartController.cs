@@ -126,5 +126,43 @@ namespace StoreFront.UI.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        public IActionResult RemoveFromCart(int id)
+        {
+            var sessionCart = HttpContext.Session.GetString("cart");
+
+            //Convert the json to C#
+            Dictionary<int, CartItemViewModel> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(sessionCart);
+
+            //Remove the item from the cart
+            shoppingCart.Remove(id);
+
+            if (shoppingCart.Count == 0)
+            {
+                HttpContext.Session.Remove("cart");
+
+            }
+            else
+            {
+                string jsonCart = JsonConvert.SerializeObject(shoppingCart);
+                HttpContext.Session.SetString("cart", jsonCart);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UpdateCart(int menuId, int qty)
+        {
+            //Retrieve the cart
+            var sessionCart = HttpContext.Session.GetString("cart");
+            //Deserialize the cart from JSON into C#
+            Dictionary<int, CartItemViewModel> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(sessionCart);
+            shoppingCart[menuId].Qty = qty;
+            string jsonCart = JsonConvert.SerializeObject(shoppingCart);
+            HttpContext.Session.SetString("cart", jsonCart);
+            return RedirectToAction("Index");
+        }
+
     }
 }
