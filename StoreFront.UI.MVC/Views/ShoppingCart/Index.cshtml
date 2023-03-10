@@ -4,112 +4,105 @@
     decimal? cartTotal = 0;
 }
 <section class="">
-<div class="container justify-content-center">
-    <div class="col-lg-10 bg-danger h-50 w-100">
-         @if (Model.Count == 0)
-        {
-            <p class="alert alert-warning text-center">
-                @ViewBag.Message
-            </p>
-        }
-        else
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>Product</td>
-                        <td>Quantity</td>
-                        <td>Name</td>
-                        <td>Price</td>
-                        <td>Total</td>
-                        <td></td> @* Leaving this blank for actions *@
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                <img src="~/images/t_@item.Value.MenuItem.FoodImg" alt="@item.Value.MenuItem.FoodName" />
-                            </td>
-                            <td>
-                                @*<input type="submit" value="Update Cart" class="btn btn-primary btn-sm" />*@
-
-                                <form asp-action="UpdateCart">
-
-                                    <input type="hidden" name="menuId" value="@item.Key" />
-                                    <input type="text" name="qty" value="@item.Value.Qty" class="form-control d-block mx-auto text-center w-50" />
-                                    <input type="submit" value="Update Cart" class="btn btn-primary btn-sm" />
-
-                                </form> 
-
-                            </td>
-                            <td>
-                                @item.Value.MenuItem.FoodName
-                            </td>
-                            <td>
-                                @string.Format($"{item.Value.MenuItem.FoodPrice:c}")
-                            </td>
-                            <td>
-                                @{
-                                    //Calculate the line total and the cart total
-                                    //lineTotal will be displayed here for each individual line item
-                                    //cartTotal will be displayed after all of the line items
-                                    decimal? lineTotal = item.Value.Qty * item.Value.MenuItem.FoodPrice;
-
-                                    cartTotal += lineTotal; //Total for ALL items
-                                }
-                                @string.Format($"{lineTotal:c}")
-                            </td>
-                            <td>
-                                @*<a href="javascript:void(0)" class="btn btn-danger">
-                                    Remove from Cart
-                                </a>*@
-
-                                <a asp-action="RemoveFromCart" asp-controller="ShoppingCart" asp-route-id="@item.Key" class="btn btn-warning">
-                                    Remove from Cart
-                                </a> 
-
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-
-
-            <div class="alert alert-success text-center">
-                <p>
-                    Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+    <div class="container justify-content-center col-5 border-2 border-secondary">
+        <div class=" h-50 w-100">
+            @if (Model.Count == 0)
+            {
+                <p class="alert alert-warning text-center">
+                    @ViewBag.Message
                 </p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Product</td>
+                                <td>Price</td>
+                                <td>Quantity</td>
+                                <td>Total</td>
+                                <td></td> @* Leaving this blank for actions *@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Value.MenuItem.FoodName
+                                        <a asp-action="RemoveFromCart" asp-controller="ShoppingCart" asp-route-id="@item.Key" class="btn btn-danger btn-sm">
+                                            Remove
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <img src="~/images/@item.Value.MenuItem.FoodImg" alt="@item.Value.MenuItem.FoodName" class="w-50" />
+                                    </td>
 
-                @if (User.Identity.IsAuthenticated)
-                {
+                                    <td>
+                                        @string.Format($"{item.Value.MenuItem.FoodPrice:c}")
+                                    </td>
+                                    <td>
+                                        <form asp-action="UpdateCart">
+
+                                            <input type="hidden" name="menuId" value="@item.Key" />
+                                            <input type="text" name="qty" value="@item.Value.Qty" class="form-control d-block text-center w-50 mx-auto mt-2" />
+                                            <input type="submit" value="Update Qty" class="btn btn-primary btn-sm d-flex update" />
+
+                                        </form>
+                                    </td>
+                                    <td class="bg-secondary bg-opacity-25">
+                                        @{
+
+                                            decimal? lineTotal = item.Value.Qty * item.Value.MenuItem.FoodPrice;
+
+                                            cartTotal += lineTotal; //Total for ALL items
+                                        }
+                                        @string.Format($"{lineTotal:c}")
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+                <div class="alert alert-success text-center">
                     <p>
-                        <a href="javascript:void(0)" class="btn btn-primary">
+                        Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+                    </p>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <a href="javascript:void(0)" class="btn btn-primary">
+                                Submit Order
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            To place this order you must be <a asp-area="Identity" asp-page="/Account/Login">logged in</a>.
+                        </p>
+
+                        <button disabled="disabled" class="btn btn-primary">
                             Submit Order
-                        </a>
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        To place this order you must be <a asp-area="Identity" asp-page="/Account/Login">logged in</a>.
-                    </p>
-
-                    <button disabled="disabled" class="btn btn-primary">
-                        Submit Order
-                    </button> 
-                }
+                        </button>
+                    }
 
 
-            </div>
+                </div>
 
 
 
-        }
+            }
 
+        </div>
     </div>
-</div>
 
 </section>

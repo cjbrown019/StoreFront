@@ -27,6 +27,8 @@ namespace StoreFront.UI.MVC.Controllers
         {
             var foodStoreFrontContext = _context.FoodStoreMenus.Include(f => f.Category).Include(f => f.Supplier);
             return View(await foodStoreFrontContext.ToListAsync());
+
+
         }
 
         [Authorize(Roles ="Admin")]

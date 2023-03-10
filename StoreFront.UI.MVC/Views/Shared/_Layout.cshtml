@@ -6,22 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="~/css/styles.css" rel="stylesheet" />
+    <!-- Datatables.Net Style-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
     <!-- GOOGLE FONT -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue"/>
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue" />
+    <!-- PagedList Style -->
+    <link href="~/css/PagedList.css" rel="stylesheet" />
+    <!-- Custom Sheet -->
+    <link rel="stylesheet" href="~/css/custom.css" />
 </head>
 <body class="bg-light">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand text-light" href="@Url.Action("Index","Home")">FOOD N' GO</a>
-            
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link text-light" aria-current="page" href="@Url.Action("Index","Home")">Home</a></li>
@@ -63,26 +70,26 @@
             </div>
 
             @{
-                                //Create a bool to determine if there are items in cart
-                                bool cartHasProducts = false;
-                                //Create a variable to store the number of products
-                                int productCount = 0;
-                                //check if "cart" string exists in the Session
-                                if (!String.IsNullOrEmpty(Context.Session.GetString("cart")))
-                                {
-                                    //if so there is items in the cart -- flip the bool
-                                    cartHasProducts = true;
+                //Create a bool to determine if there are items in cart
+                bool cartHasProducts = false;
+                //Create a variable to store the number of products
+                int productCount = 0;
+                //check if "cart" string exists in the Session
+                if (!String.IsNullOrEmpty(Context.Session.GetString("cart")))
+                {
+                    //if so there is items in the cart -- flip the bool
+                    cartHasProducts = true;
 
-                                    var products = new Dictionary<int, CartItemViewModel>();
-                                    //Deserialize the Session cart & store it in the Dictionary
-                                    products = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(Context.Session.GetString("cart"));
-                                    //Take the productCount and assign it the sum of the Qty of cart items
-                                    productCount = products.Sum(p => p.Value.Qty);
-                                }
-                            }
+                    var products = new Dictionary<int, CartItemViewModel>();
+                    //Deserialize the Session cart & store it in the Dictionary
+                    products = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(Context.Session.GetString("cart"));
+                    //Take the productCount and assign it the sum of the Qty of cart items
+                    productCount = products.Sum(p => p.Value.Qty);
+                }
+            }
 
             <div class="d-flex">
-                <a class="btn btn-outline-light me-1" id = "cartBtn" asp-action="Index" asp-controller="ShoppingCart">
+                <a class="btn btn-outline-light me-1" id="cartBtn" asp-action="Index" asp-controller="ShoppingCart">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span class="badge bg-dark text-white ms-1 rounded-pill">@productCount</span>
@@ -90,11 +97,11 @@
             </div>
             @*<form class="d-flex">
                 <button class="btn btn-outline-light me-1" type="submit" id="cartBtn">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                <i class="bi-cart-fill me-1"></i>
+                Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
-            </form>*@
+                </form>*@
             <partial name="_LoginPartial" />
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         </div>
@@ -107,14 +114,18 @@
     @RenderBody();
 
     <!-- Footer-->
-    @RenderSection("Scripts",false)
 
     <footer class="py-5 bg-custom">
         <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
     </footer>
+    <!-- Jquery -->
+    <script src="~/js/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="~/js/scripts.js"></script>
+    <!-- Data tables js -->
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.3/datatables.min.js"></script>
+    @RenderSection("Scripts",false)
 </body>
 </html>
