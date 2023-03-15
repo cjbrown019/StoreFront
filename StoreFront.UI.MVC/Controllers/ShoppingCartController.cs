@@ -158,7 +158,16 @@ namespace StoreFront.UI.MVC.Controllers
             var sessionCart = HttpContext.Session.GetString("cart");
             //Deserialize the cart from JSON into C#
             Dictionary<int, CartItemViewModel> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(sessionCart);
-            shoppingCart[menuId].Qty = qty;
+
+            if (qty <= 0)
+            {
+                shoppingCart[menuId].Qty = 1;
+            }
+            else
+            {
+                shoppingCart[menuId].Qty = qty;
+
+            }
             string jsonCart = JsonConvert.SerializeObject(shoppingCart);
             HttpContext.Session.SetString("cart", jsonCart);
             return RedirectToAction("Index");

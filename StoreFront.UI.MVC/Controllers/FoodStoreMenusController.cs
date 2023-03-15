@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StoreFront.DATA.EF.Models;
+using X.PagedList;
 
 namespace StoreFront.UI.MVC.Controllers
 {
@@ -23,11 +24,65 @@ namespace StoreFront.UI.MVC.Controllers
         }
 
         // GET: FoodStoreMenus
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm, int categoryId = 0, int page = 1)
         {
-            var foodStoreFrontContext = _context.FoodStoreMenus.Include(f => f.Category).Include(f => f.Supplier);
-            return View(await foodStoreFrontContext.ToListAsync());
 
+            int pageSize = 12;
+
+            var products = _context.FoodStoreMenus
+                 .Include(p => p.Category).Include(p => p.Supplier).ToList();
+
+            #region Optional Category Filter
+            //Create a ViewData object to send a list of Categories to the View
+            //(This is similar to what we can see in the Products/Create())
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+
+            //Add a ViewBag variable to persist the selected category
+            ViewBag.Category = 0;
+
+            if (categoryId != 0)
+            {
+                 products = products.Where( p => p.CategoryId == categoryId)
+                    .ToList();
+
+                //Repopulate with the current category selected
+                ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", categoryId);
+
+                //Reassign the ViewBag variable accordinly
+                ViewBag.Category = categoryId;
+            }
+            #endregion
+
+            #region Optional Search Filter
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                //searchTerm = searchTerm.ToLower();
+
+
+                products = products.Where(p => p.FoodName.ToLower().Contains(searchTerm.ToLower()) ||
+p.Supplier.SupplierName.ToLower().Contains(searchTerm.ToLower()) ||
+p.Category.CategoryName.ToLower().Contains(searchTerm.ToLower()) ||
+p.FoodDesc.ToLower().Contains(searchTerm.ToLower())).ToList();
+
+                //ViewBag variable for the number of results
+
+                ViewBag.NbrResults = products.Count();
+
+
+                //ViewBag variable for the search term
+                ViewBag.SearchTerm = searchTerm;
+
+            }
+            else
+            {
+                ViewBag.NbrResults = null;
+                ViewBag.SearchTerm = null;
+            }
+
+
+            #endregion
+
+            return View(products.ToPagedList(page, pageSize));
 
         }
 
