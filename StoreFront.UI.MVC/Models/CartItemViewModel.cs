@@ -8,6 +8,8 @@ namespace StoreFront.UI.MVC.Models
         //Variables used to store information
         //Always private
         //Only necessary if we need custom business rules
+        
+
 
         //PROPERTIES
         //Publicly-visible "gatekeepers" of the fields

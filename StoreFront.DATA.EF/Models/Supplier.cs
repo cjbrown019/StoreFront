@@ -19,7 +19,7 @@ namespace StoreFront.DATA.EF.Models
         public string? Zip { get; set; }
         public string? Phone { get; set; }
 
-        public virtual State State { get; set; } = null!;
+        public virtual State? State { get; set; } = null!;
         public virtual ICollection<FoodStoreMenu> FoodStoreMenus { get; set; }
     }
 }

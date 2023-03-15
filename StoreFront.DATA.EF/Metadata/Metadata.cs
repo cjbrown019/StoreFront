@@ -60,7 +60,7 @@ namespace StoreFront.DATA.EF.Models
         public string Address { get; set; } = null!;
         [Required, MaxLength(100)]
         public string City { get; set; } = null!;
-        [Required]
+       
         public int StateId { get; set; }
         [Required, MaxLength(5)]
         public string? Zip { get; set; }
