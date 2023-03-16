@@ -94,7 +94,7 @@ p.FoodDesc.ToLower().Contains(searchTerm.ToLower())).ToList();
         }
         public async Task<IActionResult> NewProds()
         {
-            var foodStoreFrontContext = _context.FoodStoreMenus.Include(f => f.Category).Include(f => f.Supplier).OrderByDescending(f=>f.FoodId);
+            var foodStoreFrontContext = _context.FoodStoreMenus.Include(f => f.Category).Include(f => f.Supplier).OrderByDescending(f=>f.FoodId).Take(8);
             return View(await foodStoreFrontContext.ToListAsync());
         }
 
