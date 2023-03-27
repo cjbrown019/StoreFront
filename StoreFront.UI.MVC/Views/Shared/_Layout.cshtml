@@ -23,7 +23,7 @@
     <link href="~/css/PagedList.css" rel="stylesheet" />
     <!-- Custom Sheet -->
 </head>
-<body class="bg-light">
+<body class="bg-light" >
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
         <div class="container px-4 px-lg-5">
@@ -92,7 +92,7 @@
                 <a class="btn btn-outline-light me-1" id="cartBtn" asp-action="Index" asp-controller="ShoppingCart">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">@productCount</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="productCount">@productCount</span>
                 </a>
             </div>
             @*<form class="d-flex">
@@ -110,16 +110,26 @@
 
 
 
-
+    <div id="renderBody">
     @RenderBody();
+
+    </div>
 
     <!-- Footer-->
 
     <footer class="py-5 bg-custom mb-0">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
     </footer>
+
+    <script>
+        let productCount = @productCount;
+    
+    </script>
+
     <!-- Jquery -->
     <script src="~/js/jquery-3.4.1.min.js"></script>
+    <!-- AJAX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" integrity="sha512-DedNBWPF0hLGUPNbCYfj8qjlEnNE92Fqn7xd3Sscfu7ipy7Zu33unHdugqRD3c4Vj7/yLv+slqZhMls/4Oc7Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

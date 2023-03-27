@@ -11,3 +11,11 @@
 #subBtn{
     margin:auto;
 }
+
+#renderBody {
+    min-height: 80vh;
+}
+
+.success-text{
+    color: forestgreen;
+}

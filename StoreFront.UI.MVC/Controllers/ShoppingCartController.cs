@@ -55,7 +55,7 @@ namespace StoreFront.UI.MVC.Controllers
             return View(shoppingCart);
         }
 
-        public IActionResult AddToCart(int id)
+        public JsonResult AddToCart(int id)
         {
 
             //Create an empty shell for our LOCAL shopping cart variable
@@ -123,7 +123,10 @@ namespace StoreFront.UI.MVC.Controllers
             string jsonCart = JsonConvert.SerializeObject(shoppingCart);
             HttpContext.Session.SetString("cart", jsonCart);
 
-            return RedirectToAction("Index");
+           
+
+            return Json(new { id = id, message = "Added to cart" });
+            //return RedirectToAction("Index");
         }
 
 
@@ -171,6 +174,34 @@ namespace StoreFront.UI.MVC.Controllers
             string jsonCart = JsonConvert.SerializeObject(shoppingCart);
             HttpContext.Session.SetString("cart", jsonCart);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ConfPage()
+        {
+            var sessionCart = HttpContext.Session.GetString("cart");
+
+            //Convert the json to C#
+            Dictionary<int, CartItemViewModel> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, CartItemViewModel>>(sessionCart);
+
+            //Remove the item from the cart
+            foreach(var item in shoppingCart)
+            {
+            shoppingCart.Remove(item.Key);
+            if (shoppingCart.Count == 0)
+            {
+                HttpContext.Session.Remove("cart");
+
+            }
+            else
+            {
+                string jsonCart = JsonConvert.SerializeObject(shoppingCart);
+                HttpContext.Session.SetString("cart", jsonCart);
+            }
+
+            }
+
+
+            return View();
         }
 
     }

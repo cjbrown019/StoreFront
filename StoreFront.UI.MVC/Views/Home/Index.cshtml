@@ -31,8 +31,17 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="offset-3 col-md-6 mt-3">
+            <div id="MessageContent" class="text-center"></div>
+        </div>
+    </div>
+
+</div>
 <!-- Section-->
-<section class="py-5">
+<section class="py-3">
     <h1 class="text-decoration-underline text-center">Featured</h1>
     <hr />
     <div class="container px-4 px-lg-5 mt-5">
@@ -59,7 +68,11 @@
                         <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.FoodId">Add to cart</a></div>
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto atcart" data-ajax="true" data-ajax-success="addedConfirmed" data-ajax-method="Post" href="~/ShoppingCart/AddToCart/@item.FoodId" data-ajax-confirm="Are you sure you want to add @item.FoodName?">
+                                    Add to cart
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,7 +80,6 @@
 
             }
 
-            <a class="btn btn-info align-content-end" asp-action="Index" asp-controller="FoodStoreMenus">All Products</a>
 
             @*            <div class="col mb-5">
                 <div class="card h-100">
@@ -265,6 +277,34 @@
                 </div>
                 </div>*@
         </div>
+        <div class="container">
+           <div class="row justify-content-center">
+            <a class="btn btn-info align-content-end col-3" asp-action="Index" asp-controller="FoodStoreMenus">All Products</a>
+
+           </div>
+        </div>
     </div>
     </div>
 </section>
+
+
+
+@section Scripts{
+<script>
+    function addedConfirmed(response, status, data) {
+
+
+                productCount += 1
+
+                //Display a status message
+                $(window).scrollTop(0);
+
+                $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>").delay('2000').fadeIn('6000');
+
+                $("#productCount").text(productCount)
+
+            }
+
+</script>
+
+}

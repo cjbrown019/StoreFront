@@ -11,6 +11,14 @@
 
 
 <h1 class="text-decoration-underline mt-3 ms-4">All Products</h1>
+<div class="container">
+    <div class="row">
+        <div class="offset-3 col-md-6">
+            <div id="MessageContent" class="text-center"></div>
+        </div>
+    </div>
+
+</div>
 
 <form asp-action="Index" method="get">
     <div class="container m-auto">
@@ -35,12 +43,12 @@
 
 
         </div>
-       
-           
 
-                <input type="submit" class="btn  btn-warning mx-auto mt-auto w-50 d-block" id="subBtn" />
-            
-        
+
+
+        <input type="submit" class="btn  btn-warning mx-auto mt-auto w-50 d-block" id="subBtn" />
+
+
 
 
     </div>
@@ -110,6 +118,7 @@
 <section class="py-2">
     <div class="container px-4 px-lg-5 mt-3">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
             @foreach (var item in Model)
             {
                 <!-- Section-->
@@ -130,7 +139,13 @@
                         <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.FoodId">Add to cart</a></div>
+                            @*<div class="text-center"><a class="btn btn-outline-dark mt-auto atcart" asp-action="AddToCart" asp-route-id="@item.FoodId" asp-controller="ShoppingCart">Add to cart</a></div>*@
+
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto atcart" data-ajax="true" data-ajax-success="addedConfirmed" data-ajax-method="Post" href="~/ShoppingCart/AddToCart/@item.FoodId" data-ajax-confirm="Are you sure you want to add @item.FoodName?">
+                                    Add to cart
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,4 +172,29 @@
             </div>
         </div>
     </div>
-</section>    
+</section>
+
+
+
+
+@section Scripts{
+<script>
+    function addedConfirmed(response, status, data) {
+
+            
+            productCount += 1
+
+            //Display a status message
+            $(window).scrollTop(0);
+
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>").delay('2000').fadeIn('6000');
+            
+            $("#productCount").text(productCount)
+
+        }
+
+
+
+
+</script>
+}
